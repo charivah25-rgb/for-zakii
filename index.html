@@ -225,6 +225,12 @@ body::before{
   cursor:pointer;
 }
 
+.clickArea{
+  position:absolute;
+  inset:0;
+  z-index:999;
+}
+
 /* front */
 .envelope::before{
   content:"";
@@ -424,9 +430,12 @@ body::before{
 <!-- 💌 scene -->
 <div class="scene">
 
-  <div class="envelope" onclick="openLetter()" id="env">
+<div class="envelope" id="env">
 
-    <div class="flap"></div>
+  <div class="clickArea"
+  onclick="openLetter()"></div>
+
+  <div class="flap"></div>
 
     <!-- 📄 paper -->
     <div class="paper">
