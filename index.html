@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Letter For You</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Parisienne&display=swap" rel="stylesheet">
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      background: linear-gradient(180deg,#ffeef5,#fff6f9);
+      font-family: 'Cormorant Garamond', serif;
+      overflow:hidden;
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      color:#7c314f;
+    }
+
+    .page{
+      width:100%;
+      max-width:400px;
+      height:100vh;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      padding:25px;
+      text-align:center;
+    }
+
+    h1{
+      font-size:42px;
+      line-height:1;
+      margin-bottom:15px;
+    }
+
+    .sub{
+      font-size:18px;
+      opacity:.7;
+      margin-bottom:20px;
+    }
+
+    input{
+      width:100%;
+      padding:14px;
+      border:none;
+      border-radius:20px;
+      background:white;
+      text-align:center;
+      font-size:18px;
+      outline:none;
+      margin-bottom:15px;
+      color:#7c314f;
+    }
+
+    button{
+      border:none;
+      background:#c95c84;
+      color:white;
+      padding:12px 25px;
+      border-radius:30px;
+      font-size:16px;
+      cursor:pointer;
+      transition:.3s;
+    }
+
+    button:hover{
+      transform:scale(1.05);
+    }
+
+    .hidden{
+      display:none;
+    }
+
+    .envelope{
+      width:300px;
+      height:200px;
+      background:#ffd8e6;
+      position:relative;
+      border-radius:12px;
+      cursor:pointer;
+      transition:.5s;
+      box-shadow:0 10px 30px rgba(0,0,0,.08);
+    }
+
+    .envelope::before{
+      content:"";
+      position:absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      clip-path:polygon(0 0,50% 50%,100% 0);
+      background:#ffc4d8;
+    }
+
+    .seal{
+      width:55px;
+      height:55px;
+      background:#c21f5c;
+      border-radius:50%;
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      color:white;
+      font-size:24px;
+      z-index:2;
+    }
+
+    .tap{
+      margin-top:20px;
+      font-size:15px;
+      opacity:.7;
+    }
+
+    .letter{
+      width:100%;
+      max-width:350px;
+      height:80vh;
+      background:#fffdfb;
+      border-radius:20px;
+      padding:30px;
+      overflow-y:auto;
+      box-shadow:0 10px 40px rgba(0,0,0,.08);
+      text-align:left;
+      animation:fade .8s ease;
+    }
+
+    .title{
+      font-family:'Parisienne', cursive;
+      font-size:42px;
+      margin-bottom:20px;
+      color:#a13a64;
+    }
+
+    .text{
+      font-size:22px;
+      line-height:2.1;
+      white-space:pre-line;
+    }
+
+    @keyframes fade{
+      from{
+        opacity:0;
+        transform:translateY(20px);
+      }
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    .signature{
+      margin-top:40px;
+      font-family:'Parisienne', cursive;
+      font-size:35px;
+      text-align:center;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- PASSWORD PAGE -->
+  <div class="page" id="passwordPage">
+
+    <h1>KEY TO MY HEART</h1>
+
+    <p class="sub">Masukkan kata sandimu</p>
+
+    <input type="password" id="passwordInput" placeholder="•••••">
+
+    <button onclick="checkPassword()">Unlock ♡</button>
+
+  </div>
+
+
+  <!-- ENVELOPE PAGE -->
+  <div class="page hidden" id="envelopePage">
+
+    <h1>A LETTER FOR YOU</h1>
+
+    <div class="envelope" onclick="openLetter()">
+
+      <div class="seal">♡</div>
+
+    </div>
+
+    <p class="tap">tap amplop untuk membuka surat</p>
+
+  </div>
+
+
+  <!-- LETTER PAGE -->
+  <div class="page hidden" id="letterPage">
+
+    <div class="letter">
+
+      <div class="title">Dear kamu,</div>
+
+      <div class="text" id="typingText"></div>
+
+      <div class="signature">
+        your biggest fan ♡
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <script>
+
+    function checkPassword(){
+
+      const password =
+      document.getElementById("passwordInput").value;
+
+      if(password === "sayang"){
+
+        document
+        .getElementById("passwordPage")
+        .classList.add("hidden");
+
+        document
+        .getElementById("envelopePage")
+        .classList.remove("hidden");
+
+      }else{
+
+        alert("password salah 😭");
+
+      }
+
+    }
+
+
+    function openLetter(){
+
+      document
+      .getElementById("envelopePage")
+      .classList.add("hidden");
+
+      document
+      .getElementById("letterPage")
+      .classList.remove("hidden");
+
+
+      const text = `akhir-akhir ini aku sering mikir kalau ternyata punya kamu di hidup aku itu salah satu hal terbaik yang pernah terjadi ke aku.
+
+mungkin aku ga selalu bilang secara langsung, tapi aku beneran bersyukur banget bisa kenal dan sedeket ini sama kamu.
+
+aku harap setelah banyak hal yang kamu lewatin sejauh ini, kamu dapet lebih banyak hari baik, lebih banyak alasan buat senyum, dan lebih banyak momen yang bikin hati kamu tenang.
+
+less overthinking, less sadness, less doubting yourself.
+karena sejujurnya, kamu jauh lebih berharga daripada yang kamu pikirin.
+
+thank you yaa udah bertahan sampai sekarang.
+thank you karena selalu usaha.
+thank you karena masih milih buat tetep jalan walaupun kadang hidup ga selalu sesuai yang kamu mau.
+
+dan makasih juga karena udah jadi seseorang yang bikin hari-hari aku terasa lebih ringan.
+
+Today is all about loving yourself a little more.
+jadi coba bahagiain diri kamu juga yaa.
+
+makan makanan favorit kamu, tidur yang cukup, denger lagu yang kamu suka, dan nikmatin hari-hari kamu pelan-pelan.
+
+i hope life treats you gently.
+i hope the universe gives you so many beautiful things.
+
+dan aku harap semua doa baik yang diam-diam kamu simpan bisa satu-satu jadi kenyataan.
+
+thank you for existing.
+thank you for staying.`;
+
+      let i = 0;
+
+      const speed = 28;
+
+      const typing = setInterval(() => {
+
+        document
+        .getElementById("typingText")
+        .innerHTML += text.charAt(i);
+
+        i++;
+
+        if(i >= text.length){
+
+          clearInterval(typing);
+
+        }
+
+      }, speed);
+
+    }
+
+  </script>
+
+</body>
+    </html>
