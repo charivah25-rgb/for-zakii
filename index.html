@@ -170,6 +170,7 @@ body{
   border-radius:8px;
   box-shadow:0 20px 40px rgba(0,0,0,.15);
   cursor:pointer;
+  overflow:visible;
 }
 
 .clickArea{
@@ -199,6 +200,7 @@ body{
   z-index:4;
 }
 
+/* PAPER FIX (INI YANG BIKIN KELUAR DARI AMPLOP) */
 .paper{
   width:340px;
   height:260px;
@@ -209,14 +211,16 @@ body{
   box-shadow:0 20px 50px rgba(0,0,0,.18);
   position:absolute;
   left:50%;
-  bottom:20px;
-  transform:translateX(-50%);
+  bottom:0px;
+  transform:translateX(-50%) translateY(40px) scale(0.95);
+  opacity:0;
   transition:1s ease;
   z-index:2;
 }
 
 .open .paper{
-  transform:translateX(-50%) translateY(-90px);
+  transform:translateX(-50%) translateY(-120px) scale(1);
+  opacity:1;
 }
 
 .open .flap{
@@ -294,7 +298,7 @@ body{
       <div class="text" id="typing"></div>
 
       <div class="signature">
-        love,<br>aku ♡
+        love,<br> ♡
       </div>
     </div>
   </div>
@@ -361,7 +365,7 @@ function checkPassword(){
   }
 }
 
-/* TYPE */
+/* TYPE TEXT */
 function typeText(){
   if(i < text.length){
     document.getElementById("typing").innerHTML += text.charAt(i);
@@ -376,9 +380,12 @@ function openLetter(){
   opened = true;
 
   document.getElementById("env").classList.add("open");
+
   document.getElementById("music").play().catch(()=>{});
 
-  setTimeout(typeText,800);
+  setTimeout(()=>{
+    typeText();
+  },800);
 }
 
 </script>
