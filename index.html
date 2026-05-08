@@ -3,9 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>for you ♡</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<title>for you</title>
 
 <style>
 *{
@@ -16,291 +14,115 @@
 
 body{
   height:100vh;
-  overflow:hidden;
-  font-family:'Poppins',sans-serif;
-  background:#fceff3;
-}
-
-/* glow */
-.glow{
-  position:absolute;
-  width:300px;
-  height:300px;
-  background:#ffd1df;
-  border-radius:50%;
-  filter:blur(120px);
-  opacity:.5;
-}
-
-/* GIFT */
-.giftScreen{
-  position:absolute;
-  inset:0;
   display:flex;
   justify-content:center;
   align-items:center;
-  flex-direction:column;
-  background:#fceff3;
-  z-index:200;
+  background:#f4f2ee; /* netral cream-grey */
+  font-family:sans-serif;
 }
 
-.giftBox{
-  font-size:90px;
+/* ENVELOPE */
+.envelope{
+  width:260px;
+  height:170px;
+  background:#ffffff;
+  border-radius:10px;
+  box-shadow:0 18px 35px rgba(0,0,0,0.12);
+  position:relative;
   cursor:pointer;
-  animation:float 2s ease-in-out infinite;
 }
 
-.giftText{
-  margin-top:12px;
-  color:#9b5c74;
-  font-size:14px;
-}
-
-@keyframes float{
-  50%{transform:translateY(-10px);}
-}
-
-/* LOADING */
-.loadingScreen{
+/* flap */
+.envelope::before{
+  content:"";
   position:absolute;
   inset:0;
-  background:#fff7fa;
+  background:linear-gradient(135deg,#e8e5df,#dcd8d0);
+  clip-path:polygon(0 0,50% 55%,100% 0,100% 100%,0 100%);
+}
+
+/* LETTER OVERLAY */
+.letter{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.55);
   display:none;
   justify-content:center;
   align-items:center;
-  flex-direction:column;
-  z-index:170;
+  z-index:999;
+  padding:20px;
 }
 
-.loader{
-  width:45px;
-  height:45px;
-  border:4px solid #f2c7d4;
-  border-top:4px solid #c97d97;
-  border-radius:50%;
-  animation:spin 1s linear infinite;
+.letter.show{
+  display:flex;
 }
 
-.loadingScreen p{
-  margin-top:15px;
-  color:#9b5c74;
+/* CARD */
+.card{
+  background:#ffffff;
+  padding:16px;
+  border-radius:12px;
+  max-width:90%;
+  text-align:center;
+  box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* IMAGE SURAT */
+.card img{
+  width:100%;
+  border-radius:10px;
+}
+
+/* BUTTON */
+button{
+  margin-top:12px;
+  padding:10px 14px;
+  border:none;
+  border-radius:8px;
+  background:#3a3a3a;
+  color:white;
+  cursor:pointer;
   font-size:13px;
 }
 
-@keyframes spin{
-  to{transform:rotate(360deg);}
+button:hover{
+  opacity:0.85;
 }
-
-/* PASSWORD */
-.lockScreen{
-  position:absolute;
-  inset:0;
-  background:rgba(255,245,248,.92);
-  backdrop-filter:blur(10px);
-  display:none;
-  justify-content:center;
-  align-items:center;
-  z-index:99;
-}
-
-.lockBox{
-  width:280px;
-  background:white;
-  padding:28px;
-  border-radius:20px;
-  box-shadow:0 20px 40px rgba(0,0,0,.12);
-  text-align:center;
-}
-
-.lockBox h2{
-  font-family:'Parisienne',cursive;
-  font-size:42px;
-  color:#9b5c74;
-  margin-bottom:20px;
-}
-
-.lockBox input{
-  width:100%;
-  padding:12px;
-  border:none;
-  border-radius:12px;
-  background:#f8eef2;
-  outline:none;
-  margin-bottom:14px;
-}
-
-.lockBox button{
-  width:100%;
-  padding:12px;
-  border:none;
-  border-radius:12px;
-  background:#e8b8c8;
-  color:white;
-  cursor:pointer;
-  font-size:14px;
-}
-
-#wrong{
-  margin-top:10px;
-  color:#d66;
-  font-size:12px;
-}
-
-/* FULL LETTER */
-.fullLetter{
-  position:fixed;
-  inset:0;
-  background:#fffdfb;
-  z-index:999;
-  display:none;
-  padding:40px 25px;
-  overflow-y:auto;
-}
-
-.fullLetter.show{
-  display:block;
-}
-
-.fullTitle{
-  font-family:'Parisienne', cursive;
-  font-size:40px;
-  margin-bottom:20px;
-  color:#9b5c74;
-}
-
-.fullText{
-  font-size:15px;
-  line-height:1.7;
-  color:#7a5060;
-  white-space:pre-line;
-}
-
-.signature{
-  margin-top:40px;
-  font-family:'Parisienne', cursive;
-  font-size:28px;
-  text-align:center;
-  color:#9b5c74;
-}
-
-.downloadHint{
-  margin-top:30px;
-  text-align:center;
-  font-size:12px;
-  color:#9b5c74;
-  opacity:.7;
-}
-
 </style>
 </head>
 
 <body>
 
-<div class="glow"></div>
+<!-- ENVELOPE -->
+<div class="envelope" onclick="openLetter()"></div>
 
-<!-- GIFT -->
-<div class="giftScreen" id="giftScreen">
-  <div class="giftBox" onclick="openGift()">🎁</div>
-  <div class="giftText">tap the gift ♡</div>
-</div>
+<!-- LETTER -->
+<div class="letter" id="letter">
 
-<!-- LOADING -->
-<div class="loadingScreen" id="loadingScreen">
-  <div class="loader"></div>
-  <p>opening your letter...</p>
-</div>
+  <div class="card">
 
-<!-- PASSWORD -->
-<div class="lockScreen" id="lockScreen">
-  <div class="lockBox">
-    <h2>for you ♡</h2>
-    <input type="password" id="password" placeholder="enter password">
-    <button onclick="checkPassword()">open</button>
-    <p id="wrong"></p>
-  </div>
-</div>
+    <img src="https://files.catbox.moe/5jqk3h.png">
 
-<!-- FULL LETTER -->
-<div class="fullLetter" id="fullLetter">
-  <div class="fullTitle">Dear kamu,</div>
+    <button onclick="downloadLetter()">
+      download this letter
+    </button>
 
-  <div class="fullText" id="fullText"></div>
-
-  <div class="signature">
-    love
   </div>
 
-  <div class="downloadHint">
-    screenshot this letter ♡
-  </div>
 </div>
-
-<audio id="music" loop>
-  <source src="https://files.catbox.moe/96xsgj.mp3">
-</audio>
 
 <script>
 
-const text = `mungkin aku ga selalu bilang secara langsung, tapi aku beneran bersyukur banget bisa kenal dan sedeket ini sama kamu.
-
-aku harap setelah banyak hal yang kamu lewatin sejauh ini, kamu dapet lebih banyak hari baik, lebih banyak alasan buat senyum, dan lebih banyak momen yang bikin hati kamu tenang.
-
-less overthinking, less sadness, less doubting yourself.
-
-karena sejujurnya, kamu jauh lebih berharga daripada yang kamu pikirin. makasih yaa udah bertahan sampai sekarang.
-
-makasiih karena masih milih buat tetep jalan walaupun kadang hidup ga selalu sesuai yang kamu mau.
-
-dan makasih juga karena udah jadi seseorang yang bikin hari-hari aku terasa lebih ringan.
-
-Today is all about loving yourself a little more.
-
-jadi coba bahagiain diri kamu juga yaa.
-
-makan makanan favorit kamu, tidur yang cukup, denger lagu yang kamu suka, dan nikmatin hari-hari kamu pelan-pelan.
-
-i hope life treats you gently.
-
-i hope the universe gives you so many beautiful things.
-
-dan aku harap semua doa baik yang diam-diam kamu simpan bisa satu-satu jadi kenyataan.
-
-thank you for existing.
-thank you for staying.`;
-
-let opened = false;
-
-/* GIFT */
-function openGift(){
-  document.getElementById("giftScreen").style.display="none";
-  document.getElementById("loadingScreen").style.display="flex";
-
-  setTimeout(()=>{
-    document.getElementById("loadingScreen").style.display="none";
-    document.getElementById("lockScreen").style.display="flex";
-  },3000);
-}
-
-/* PASSWORD */
-function checkPassword(){
-  const pass = document.getElementById("password").value;
-
-  if(pass === "zaki"){
-    document.getElementById("lockScreen").style.display="none";
-  } else {
-    document.getElementById("wrong").innerHTML="wrong password :(";
-  }
-}
-
-/* OPEN LETTER */
 function openLetter(){
-  if(opened) return;
-  opened = true;
+  document.getElementById("letter").classList.add("show");
+}
 
-  document.getElementById("music").play().catch(()=>{});
-
-  document.getElementById("fullLetter").classList.add("show");
-  document.getElementById("fullText").innerText = text;
+/* DOWNLOAD */
+function downloadLetter(){
+  const link = document.createElement("a");
+  link.href = "https://files.catbox.moe/5jqk3h.png";
+  link.download = "letter.png";
+  link.click();
 }
 
 </script>
