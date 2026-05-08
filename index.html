@@ -5,8 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>for you</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
-
 <style>
 *{
   margin:0;
@@ -17,24 +15,8 @@
 body{
   height:100vh;
   overflow:hidden;
-  font-family:'Poppins',sans-serif;
-  background:radial-gradient(circle at top,#1e1e1e,#0f0f0f);
-}
-
-/* ✨ particles */
-.particle{
-  position:absolute;
-  width:6px;
-  height:6px;
-  background:white;
-  border-radius:50%;
-  opacity:0.3;
-  animation:float 6s linear infinite;
-}
-
-@keyframes float{
-  from{transform:translateY(100vh);}
-  to{transform:translateY(-10vh);}
+  font-family:sans-serif;
+  background:radial-gradient(circle,#1a1a1a,#0b0b0b);
 }
 
 /* 🎁 GIFT */
@@ -45,28 +27,20 @@ body{
   justify-content:center;
   align-items:center;
   flex-direction:column;
-  z-index:300;
-  backdrop-filter:blur(8px);
 }
 
 .giftBox{
   font-size:90px;
   cursor:pointer;
-  animation:glow 2s ease-in-out infinite;
+  animation:float 2s ease-in-out infinite;
   filter:drop-shadow(0 0 20px rgba(255,255,255,0.2));
 }
 
-@keyframes glow{
-  50%{transform:translateY(-10px) scale(1.05);}
+@keyframes float{
+  50%{transform:translateY(-10px);}
 }
 
-.giftText{
-  color:#aaa;
-  margin-top:10px;
-  font-size:13px;
-}
-
-/* ⏳ LOADING */
+/* 🎈 LOADING */
 .loading{
   position:absolute;
   inset:0;
@@ -74,13 +48,13 @@ body{
   justify-content:center;
   align-items:center;
   flex-direction:column;
-  background:rgba(0,0,0,0.6);
-  backdrop-filter:blur(10px);
+  background:rgba(0,0,0,0.7);
+  color:white;
 }
 
 .loader{
-  width:50px;
-  height:50px;
+  width:45px;
+  height:45px;
   border:3px solid #444;
   border-top:3px solid #fff;
   border-radius:50%;
@@ -91,12 +65,6 @@ body{
   to{transform:rotate(360deg);}
 }
 
-.loading p{
-  margin-top:15px;
-  color:#ccc;
-  letter-spacing:1px;
-}
-
 /* 🔒 PASSWORD */
 .passwordScreen{
   position:absolute;
@@ -104,39 +72,24 @@ body{
   display:none;
   justify-content:center;
   align-items:center;
-  background:rgba(0,0,0,0.5);
-  backdrop-filter:blur(12px);
+  background:rgba(0,0,0,0.6);
 }
 
 .box{
-  width:260px;
-  background:rgba(255,255,255,0.08);
-  border:1px solid rgba(255,255,255,0.2);
+  background:rgba(255,255,255,0.1);
   padding:25px;
   border-radius:15px;
-  text-align:center;
   color:white;
-  transition:0.3s;
-}
-
-.box.shake{
-  animation:shake 0.3s;
-}
-
-@keyframes shake{
-  0%,100%{transform:translateX(0);}
-  25%{transform:translateX(-5px);}
-  75%{transform:translateX(5px);}
+  text-align:center;
+  backdrop-filter:blur(10px);
 }
 
 input{
   margin-top:10px;
-  width:100%;
   padding:10px;
-  border:none;
+  width:100%;
   border-radius:10px;
-  background:rgba(255,255,255,0.1);
-  color:white;
+  border:none;
   outline:none;
 }
 
@@ -146,8 +99,6 @@ button{
   width:100%;
   border:none;
   border-radius:10px;
-  background:white;
-  color:black;
   cursor:pointer;
 }
 
@@ -163,24 +114,18 @@ button{
 .envelope{
   width:280px;
   height:180px;
-  background:#f5f5f5;
+  background:#eee;
   border-radius:12px;
-  box-shadow:0 30px 80px rgba(0,0,0,0.6);
   position:relative;
   cursor:pointer;
-  animation:appear 1s ease forwards;
-}
-
-@keyframes appear{
-  from{opacity:0; transform:translateY(40px);}
-  to{opacity:1; transform:translateY(0);}
+  box-shadow:0 25px 60px rgba(0,0,0,0.6);
 }
 
 .envelope::before{
   content:"";
   position:absolute;
   inset:0;
-  background:linear-gradient(135deg,#e0e0e0,#cfcfcf);
+  background:linear-gradient(135deg,#ddd,#bbb);
   clip-path:polygon(0 0,50% 55%,100% 0,100% 100%,0 100%);
 }
 
@@ -204,12 +149,11 @@ button{
 .fullscreen{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,0.8);
   display:none;
   justify-content:center;
   align-items:center;
   flex-direction:column;
-  backdrop-filter:blur(8px);
+  background:rgba(0,0,0,0.8);
 }
 
 .fullscreen.show{
@@ -219,14 +163,7 @@ button{
 .fullscreen img{
   width:90%;
   max-width:520px;
-  border-radius:14px;
-  box-shadow:0 30px 80px rgba(0,0,0,0.8);
-  animation:pop 0.6s ease;
-}
-
-@keyframes pop{
-  from{transform:scale(0.95);}
-  to{transform:scale(1);}
+  border-radius:12px;
 }
 
 </style>
@@ -234,45 +171,33 @@ button{
 
 <body>
 
-<!-- particles -->
-<script>
-for(let i=0;i<20;i++){
-  let p=document.createElement("div");
-  p.className="particle";
-  p.style.left=Math.random()*100+"vw";
-  p.style.animationDuration=(3+Math.random()*5)+"s";
-  document.body.appendChild(p);
-}
-</script>
-
-<!-- GIFT -->
+<!-- 🎁 KADO -->
 <div class="giftScreen" id="giftScreen">
   <div class="giftBox" onclick="start()">🎁</div>
-  <div class="giftText">tap to open</div>
 </div>
 
-<!-- LOADING -->
+<!-- ⏳ LOADING -->
 <div class="loading" id="loading">
   <div class="loader"></div>
-  <p>opening your memory...</p>
+  <p>opening gift...</p>
 </div>
 
-<!-- PASSWORD -->
+<!-- 🔒 PASSWORD -->
 <div class="passwordScreen" id="passwordScreen">
-  <div class="box" id="box">
-    enter password
+  <div class="box">
+    <div>enter password</div>
     <input type="password" id="pw">
     <button onclick="check()">open</button>
   </div>
 </div>
 
-<!-- SCENE -->
+<!-- 💌 SCENE -->
 <div class="scene" id="scene">
 
   <div class="envelope" onclick="openLetter()"></div>
 
   <div class="letter" id="letter">
-    <img src="https://files.catbox.moe/5jqk3h.png">
+    <img src="https://files.catbox.moe/5jqk3h.png" width="320">
   </div>
 
 </div>
@@ -292,19 +217,17 @@ function start(){
   setTimeout(()=>{
     document.getElementById("loading").style.display="none";
     document.getElementById("passwordScreen").style.display="flex";
-  },3000);
+  },2500);
 }
 
 function check(){
   let pw=document.getElementById("pw").value;
-  let box=document.getElementById("box");
 
   if(pw==="zaki"){
     document.getElementById("passwordScreen").style.display="none";
     document.getElementById("scene").style.display="flex";
   }else{
-    box.classList.add("shake");
-    setTimeout(()=>box.classList.remove("shake"),300);
+    alert("wrong password");
   }
 }
 
