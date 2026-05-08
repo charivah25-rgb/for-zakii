@@ -5,19 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>for you ♡</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
-
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
 body{
+  margin:0;
   height:100vh;
   background:#f7efe9;
-  font-family:'Poppins',sans-serif;
+  font-family:sans-serif;
 }
 
 /* SCREEN */
@@ -26,78 +19,72 @@ body{
   height:100vh;
   justify-content:center;
   align-items:center;
-  flex-direction:column;
 }
 
-/* FIRST */
+/* FIRST SCREEN */
 #giftScreen{display:flex;}
 
-/* 🎁 VALENTINE GIFT */
+/* GIFT */
 .gift{
-  width:180px;
-  height:180px;
-  background:linear-gradient(135deg,#ff7f9c,#ffc1cc);
-  border-radius:22px;
+  width:160px;
+  height:160px;
+  background:#ffb6c1;
+  border-radius:20px;
   display:flex;
   justify-content:center;
   align-items:center;
   font-size:60px;
   cursor:pointer;
-  box-shadow:0 20px 50px rgba(0,0,0,0.15);
-}
-
-.giftText{
-  margin-top:12px;
-  color:#7a5c52;
 }
 
 /* PASSWORD */
 .box{
   width:280px;
-  padding:28px;
-  background:#fff;
-  border-radius:18px;
+  padding:25px;
+  background:white;
+  border-radius:16px;
   text-align:center;
-  box-shadow:0 15px 40px rgba(0,0,0,0.1);
+  box-shadow:0 10px 25px rgba(0,0,0,0.1);
 }
 
 input{
   width:100%;
   padding:12px;
   margin-top:10px;
-  border:1px solid #e6d8cf;
   border-radius:10px;
-  outline:none;
-  background:#fff7f3;
+  border:1px solid #ddd;
 }
 
 button{
   width:100%;
-  margin-top:12px;
+  margin-top:10px;
   padding:12px;
   border:none;
   border-radius:10px;
-  background:#caa08c;
+  background:#c9a38b;
   color:white;
 }
 
-/* ENVELOPE */
+/* WRAPPER */
 .wrapper{
-  width:310px;
-  height:220px;
+  width:320px;
+  height:240px;
   position:relative;
 }
 
-/* envelope */
+/* ENVELOPE (PASTI KENA CLICK) */
 .envelope{
   width:100%;
   height:180px;
-  background:#fff;
-  border-radius:14px;
+  background:white;
+  border-radius:12px;
   position:absolute;
   bottom:0;
+
   cursor:pointer;
-  box-shadow:0 15px 40px rgba(0,0,0,0.1);
+  z-index:10; /* 🔥 penting biar bisa diklik */
+
+  box-shadow:0 10px 25px rgba(0,0,0,0.1);
 }
 
 /* flap */
@@ -105,7 +92,7 @@ button{
   content:"";
   position:absolute;
   inset:0;
-  background:#f3e4da;
+  background:#f1e2d8;
   clip-path:polygon(0 0,50% 55%,100% 0,100% 100%,0 100%);
 }
 
@@ -113,33 +100,18 @@ button{
 .letter{
   position:absolute;
   left:50%;
-  bottom:20px;
+  bottom:10px;
 
-  transform:translateX(-50%) translateY(40px);
-  opacity:0;
+  transform:translateX(-50%);
+  display:none;
 
-  transition:0.6s ease;
-
-  width:340px;
-}
-
-.letter.open{
-  transform:translateX(-50%) translateY(-165px);
-  opacity:1;
+  z-index:5;
 }
 
 .letter img{
-  width:100%;
+  width:340px;
   border-radius:12px;
   box-shadow:0 10px 30px rgba(0,0,0,0.15);
-}
-
-/* hint */
-.hint{
-  margin-top:8px;
-  font-size:12px;
-  text-align:center;
-  color:#7a5c52;
 }
 
 </style>
@@ -149,9 +121,8 @@ button{
 
 <!-- 🎁 GIFT -->
 <div class="screen" id="giftScreen">
-  <div>
-    <div class="gift" onclick="toPW()">🎁</div>
-    <div class="giftText">for someone special ♡</div>
+  <div onclick="toPW()">
+    <div class="gift">🎁</div>
   </div>
 </div>
 
@@ -169,11 +140,12 @@ button{
 
   <div class="wrapper">
 
-    <div class="envelope" onclick="toggleLetter()"></div>
+    <!-- 🔥 CLICK AREA BESAR -->
+    <div class="envelope" onclick="openLetter()"></div>
 
+    <!-- SURAT -->
     <div class="letter" id="letter">
       <img src="https://files.catbox.moe/5jqk3h.png">
-      <div class="hint">tap again to close ♡</div>
     </div>
 
   </div>
@@ -182,15 +154,12 @@ button{
 
 <script>
 
-let opened=false;
-
-/* gift → pw */
+/* FLOW */
 function toPW(){
   document.getElementById("giftScreen").style.display="none";
   document.getElementById("pwScreen").style.display="flex";
 }
 
-/* password */
 function check(){
   let pw=document.getElementById("pw").value;
 
@@ -198,22 +167,13 @@ function check(){
     document.getElementById("pwScreen").style.display="none";
     document.getElementById("envScreen").style.display="flex";
   }else{
-    alert("wrong password :(");
+    alert("wrong password");
   }
 }
 
-/* toggle letter */
-function toggleLetter(){
-
-  const letter=document.getElementById("letter");
-
-  if(!opened){
-    letter.classList.add("open");
-    opened=true;
-  }else{
-    letter.classList.remove("open");
-    opened=false;
-  }
+/* OPEN LETTER */
+function openLetter(){
+  document.getElementById("letter").style.display="block";
 }
 
 </script>
