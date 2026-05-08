@@ -19,10 +19,6 @@ body{
   overflow:hidden;
   font-family:'Poppins',sans-serif;
   background:#fceff3;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  position:relative;
 }
 
 /* glow */
@@ -150,118 +146,51 @@ body{
   font-size:12px;
 }
 
-/* SCENE */
-.scene{
-  position:relative;
-  width:320px;
-  height:420px;
-  z-index:5;
-}
-
-/* ENVELOPE */
-.envelope{
-  position:absolute;
-  bottom:0;
-  left:50%;
-  transform:translateX(-50%);
-  width:260px;
-  height:170px;
-  background:#fff;
-  border-radius:8px;
-  box-shadow:0 20px 40px rgba(0,0,0,.15);
-  cursor:pointer;
-  overflow:visible;
-}
-
-.clickArea{
-  position:absolute;
+/* FULL LETTER */
+.fullLetter{
+  position:fixed;
   inset:0;
-  z-index:999;
-}
-
-.envelope::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(135deg,#ffe3eb,#ffd3e0);
-  clip-path:polygon(0 0,50% 55%,100% 0,100% 100%,0 100%);
-  z-index:3;
-}
-
-.flap{
-  position:absolute;
-  top:0;
-  width:100%;
-  height:100%;
-  background:#ffc7d7;
-  clip-path:polygon(0 0,50% 60%,100% 0);
-  transform-origin:top;
-  transition:1s ease;
-  z-index:4;
-}
-
-/* 💌 PAPER FIX FINAL (KELUAR DARI AMPLOP) */
-.paper{
-  width:340px;
-  height:260px;
   background:#fffdfb;
-  padding:22px;
-  border-radius:12px;
+  z-index:999;
+  display:none;
+  padding:40px 25px;
   overflow-y:auto;
-  box-shadow:0 20px 50px rgba(0,0,0,.18);
-
-  position:absolute;
-  left:50%;
-  bottom:0px;
-
-  transform:translateX(-50%) translateY(70px) scale(0.9);
-  opacity:0;
-
-  transition:1s ease;
-  z-index:2;
 }
 
-.open .paper{
-  transform:translateX(-50%) translateY(-180px) scale(1);
-  opacity:1;
+.fullLetter.show{
+  display:block;
 }
 
-.open .flap{
-  transform:rotateX(180deg);
-  z-index:0;
-}
-
-/* TEXT */
-.title{
+.fullTitle{
   font-family:'Parisienne', cursive;
-  font-size:35px;
-  margin-bottom:15px;
+  font-size:40px;
+  margin-bottom:20px;
   color:#9b5c74;
 }
 
-.text{
-  font-size:14px;
-  line-height:1.5;
+.fullText{
+  font-size:15px;
+  line-height:1.7;
   color:#7a5060;
+  white-space:pre-line;
 }
 
 .signature{
-  margin-top:30px;
+  margin-top:40px;
   font-family:'Parisienne', cursive;
   font-size:28px;
   text-align:center;
   color:#9b5c74;
 }
 
-.tap{
-  position:absolute;
-  bottom:-45px;
-  width:100%;
+.downloadHint{
+  margin-top:30px;
   text-align:center;
-  font-size:13px;
+  font-size:12px;
   color:#9b5c74;
   opacity:.7;
 }
+
 </style>
 </head>
 
@@ -291,25 +220,19 @@ body{
   </div>
 </div>
 
-<!-- LETTER -->
-<div class="scene">
-  <div class="envelope" id="env">
-    <div class="clickArea" onclick="openLetter()"></div>
-    <div class="flap"></div>
+<!-- FULL LETTER -->
+<div class="fullLetter" id="fullLetter">
+  <div class="fullTitle">Dear kamu,</div>
 
-    <div class="paper">
-      <div class="title">Dear kamu,</div>
+  <div class="fullText" id="fullText"></div>
 
-      <div class="text" id="typing"></div>
-
-      <div class="signature">
-        love<br>
-        aku
-      </div>
-    </div>
+  <div class="signature">
+    love
   </div>
 
-  <div class="tap">tap the envelope ♡</div>
+  <div class="downloadHint">
+    screenshot this letter ♡
+  </div>
 </div>
 
 <audio id="music" loop>
@@ -345,7 +268,6 @@ dan aku harap semua doa baik yang diam-diam kamu simpan bisa satu-satu jadi keny
 thank you for existing.
 thank you for staying.`;
 
-let i = 0;
 let opened = false;
 
 /* GIFT */
@@ -370,27 +292,15 @@ function checkPassword(){
   }
 }
 
-/* TYPE */
-function typeText(){
-  if(i < text.length){
-    document.getElementById("typing").innerHTML += text.charAt(i);
-    i++;
-    setTimeout(typeText,20);
-  }
-}
-
 /* OPEN LETTER */
 function openLetter(){
   if(opened) return;
   opened = true;
 
-  document.getElementById("env").classList.add("open");
-
   document.getElementById("music").play().catch(()=>{});
 
-  setTimeout(()=>{
-    typeText();
-  },800);
+  document.getElementById("fullLetter").classList.add("show");
+  document.getElementById("fullText").innerText = text;
 }
 
 </script>
