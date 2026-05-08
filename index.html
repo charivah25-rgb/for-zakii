@@ -17,22 +17,121 @@ body{
   display:flex;
   justify-content:center;
   align-items:center;
-  background:#f4f2ee; /* netral cream-grey */
+  background:#f4f2ee;
   font-family:sans-serif;
+  overflow:hidden;
+}
+
+/* GIFT */
+.giftScreen{
+  position:absolute;
+  inset:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  background:#f4f2ee;
+  z-index:300;
+}
+
+.gift{
+  font-size:80px;
+  cursor:pointer;
+  animation:float 2s ease-in-out infinite;
+}
+
+@keyframes float{
+  50%{transform:translateY(-10px);}
+}
+
+.balloon{
+  position:absolute;
+  font-size:30px;
+  animation:rise 4s linear forwards;
+  opacity:0.9;
+}
+
+@keyframes rise{
+  0%{transform:translateY(100px);}
+  100%{transform:translateY(-900px);}
+}
+
+/* LOADING */
+.loading{
+  position:absolute;
+  inset:0;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  background:#f4f2ee;
+  z-index:250;
+}
+
+.loader{
+  width:40px;
+  height:40px;
+  border:4px solid #ccc;
+  border-top:4px solid #555;
+  border-radius:50%;
+  animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg);}
+}
+
+/* PASSWORD */
+.passwordScreen{
+  position:absolute;
+  inset:0;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  background:rgba(0,0,0,0.2);
+  z-index:200;
+}
+
+.box{
+  background:white;
+  padding:20px;
+  border-radius:10px;
+  text-align:center;
+}
+
+input{
+  padding:10px;
+  margin-top:10px;
+  width:100%;
+}
+
+button{
+  margin-top:10px;
+  padding:10px;
+  width:100%;
+  border:none;
+  background:#333;
+  color:white;
+  cursor:pointer;
 }
 
 /* ENVELOPE */
+.scene{
+  display:none;
+  position:relative;
+}
+
 .envelope{
   width:260px;
   height:170px;
-  background:#ffffff;
+  background:#fff;
   border-radius:10px;
   box-shadow:0 18px 35px rgba(0,0,0,0.12);
   position:relative;
   cursor:pointer;
+  overflow:hidden;
 }
 
-/* flap */
 .envelope::before{
   content:"";
   position:absolute;
@@ -41,87 +140,128 @@ body{
   clip-path:polygon(0 0,50% 55%,100% 0,100% 100%,0 100%);
 }
 
-/* LETTER OVERLAY */
+/* LETTER */
 .letter{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.55);
-  display:none;
+  position:absolute;
+  top:180px;
+  left:0;
+  width:100%;
+  display:flex;
   justify-content:center;
-  align-items:center;
-  z-index:999;
-  padding:20px;
+  opacity:0;
+  transition:1s;
 }
 
 .letter.show{
-  display:flex;
+  top:-250px;
+  opacity:1;
 }
 
 /* CARD */
 .card{
-  background:#ffffff;
-  padding:16px;
+  background:white;
+  padding:15px;
   border-radius:12px;
-  max-width:90%;
   text-align:center;
   box-shadow:0 10px 25px rgba(0,0,0,0.2);
 }
 
-/* IMAGE SURAT */
 .card img{
-  width:100%;
+  width:280px;
   border-radius:10px;
 }
 
 /* BUTTON */
-button{
-  margin-top:12px;
-  padding:10px 14px;
+.downloadBtn{
+  margin-top:10px;
+  padding:8px 12px;
   border:none;
-  border-radius:8px;
-  background:#3a3a3a;
+  background:#333;
   color:white;
   cursor:pointer;
-  font-size:13px;
+  border-radius:8px;
 }
 
-button:hover{
-  opacity:0.85;
-}
 </style>
 </head>
 
 <body>
 
-<!-- ENVELOPE -->
-<div class="envelope" onclick="openLetter()"></div>
+<!-- GIFT -->
+<div class="giftScreen" id="giftScreen">
+  <div class="gift" onclick="start()">🎁</div>
+</div>
 
-<!-- LETTER -->
-<div class="letter" id="letter">
+<!-- LOADING -->
+<div class="loading" id="loading">
+  <div class="loader"></div>
+</div>
 
-  <div class="card">
+<!-- PASSWORD -->
+<div class="passwordScreen" id="passwordScreen">
+  <div class="box">
+    <div>enter password</div>
+    <input type="password" id="pw">
+    <button onclick="check()">open</button>
+  </div>
+</div>
 
-    <img src="https://files.catbox.moe/5jqk3h.png">
+<!-- SCENE -->
+<div class="scene" id="scene">
 
-    <button onclick="downloadLetter()">
-      download this letter
-    </button>
+  <div class="envelope" onclick="openLetter()"></div>
 
+  <div class="letter" id="letter">
+    <div class="card">
+      <img src="https://files.catbox.moe/5jqk3h.png">
+      <button class="downloadBtn" onclick="download()">download this letter</button>
+    </div>
   </div>
 
 </div>
 
 <script>
 
+function start(){
+  document.getElementById("giftScreen").style.display="none";
+  document.getElementById("loading").style.display="flex";
+
+  // balon keluar
+  for(let i=0;i<6;i++){
+    let b=document.createElement("div");
+    b.className="balloon";
+    b.innerHTML="🎈";
+    b.style.left=Math.random()*100+"vw";
+    b.style.bottom="0px";
+    document.body.appendChild(b);
+
+    setTimeout(()=>b.remove(),4000);
+  }
+
+  setTimeout(()=>{
+    document.getElementById("loading").style.display="none";
+    document.getElementById("passwordScreen").style.display="flex";
+  },3000);
+}
+
+function check(){
+  let pw=document.getElementById("pw").value;
+  if(pw==="zaki"){
+    document.getElementById("passwordScreen").style.display="none";
+    document.getElementById("scene").style.display="flex";
+  } else {
+    alert("wrong password");
+  }
+}
+
 function openLetter(){
   document.getElementById("letter").classList.add("show");
 }
 
-/* DOWNLOAD */
-function downloadLetter(){
-  const link = document.createElement("a");
-  link.href = "https://files.catbox.moe/5jqk3h.png";
-  link.download = "letter.png";
+function download(){
+  const link=document.createElement("a");
+  link.href="https://files.catbox.moe/5jqk3h.png";
+  link.download="letter.png";
   link.click();
 }
 
