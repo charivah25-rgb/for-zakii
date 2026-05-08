@@ -175,18 +175,17 @@
 <body>
 
   <!-- PASSWORD PAGE -->
-  <div class="page" id="passwordPage">
+<div class="page" id="passwordPage">
 
-    <h1>KEY TO MY HEART</h1>
+  <h1>KEY TO MY HEART</h1>
 
-    <p class="sub">Masukkan kata sandimu</p>
+  <p class="sub">Masukkan kata sandimu</p>
 
-    <input type="password" id="passwordInput" placeholder="•••••">
+  <input type="password" id="passwordInput" placeholder="•••••" autocomplete="off">
 
-    <button onclick="checkPassword()">Unlock ♡</button>
+  <button onclick="checkPassword()">Unlock ♡</button>
 
-  </div>
-
+</div>
 
   <!-- ENVELOPE PAGE -->
   <div class="page hidden" id="envelopePage">
@@ -226,9 +225,9 @@
 
     function checkPassword(){
 
-  const password = document.getElementById("passwordInput").value;
+  const password = document.getElementById("passwordInput").value.trim();
 
-  if(password === "2702"){
+  if(password === "zakii"){
 
     document.getElementById("passwordPage").classList.add("hidden");
     document.getElementById("envelopePage").classList.remove("hidden");
@@ -238,7 +237,8 @@
     alert("password salah 😭");
 
   }
-    }
+
+}
 
 
     function openLetter(){
