@@ -84,12 +84,20 @@
     }
 
     .letter{
-      width:90%;
-      max-width:350px;
-      background:white;
-      padding:25px;
-      border-radius:15px;
-      overflow-y:auto;
+       width:90%;
+       max-width:360px;
+       max-height:75vh;
+       background: #fffdfb;
+       padding:30px 25px;
+       border-radius:18px;
+       overflow-y:auto;
+       box-shadow:0 15px 40px rgba(0,0,0,.12);
+       text-align:left;
+
+  /* biar kayak kertas */
+       background-image: linear-gradient(#fffdfb 95%, #f3e6ec 100%);
+       background-size: 100% 28px;
+       line-height: 28px;
     }
 
     .title{
@@ -182,25 +190,21 @@ function openLetter(){
   document.getElementById("envelopePage").classList.add("hidden");
   document.getElementById("letterPage").classList.remove("hidden");
 
-  const text = `akhir-akhir ini aku sering mikir kalau ternyata punya kamu di hidup aku itu salah satu hal terbaik yang pernah terjadi ke aku.
-mungkin aku ga selalu bilang secara langsung, tapi aku beneran bersyukur banget bisa kenal dan sedeket ini sama kamu.
-aku harap setelah banyak hal yang kamu lewatin sejauh ini, kamu dapet lebih banyak hari baik, lebih banyak alasan buat senyum, dan lebih banyak momen yang bikin hati kamu tenang.
-less overthinking, less sadness, less doubting yourself.
-karena sejujurnya, kamu jauh lebih berharga daripada yang kamu pikirin.
-
-thank you yaa udah bertahan sampai sekarang.
-thank you karena selalu usaha.
-thank you karena masih milih buat tetep jalan walaupun kadang hidup ga selalu sesuai yang kamu mau.
-dan makasih juga karena udah jadi seseorang yang bikin hari-hari aku terasa lebih ringan.
-Today is all about loving yourself a little more.
-jadi coba bahagiain diri kamu juga yaa.
-makan makanan favorit kamu, tidur yang cukup, denger lagu yang kamu suka, dan nikmatin hari-hari kamu pelan-pelan.
-i hope life treats you gently.
-i hope the universe gives you so many beautiful things.
-dan aku harap semua doa baik yang diam-diam kamu simpan bisa satu-satu jadi kenyataan.
-
-thank you for existing.
-thank you for staying.`;
+  const text = `mungkin aku ga selalu bilang secara langsung, tapi aku beneran bersyukur banget bisa kenal dan sedeket ini sama kamu.
+  aku harap setelah banyak hal yang kamu lewatin sejauh ini, 
+  kamu dapet lebih banyak hari baik, lebih banyak alasan buat senyum, dan lebih banyak momen yang bikin hati kamu tenang.
+  less overthinking, less sadness, less doubting yourself.
+  karena sejujurnya, kamu jauh lebih berharga daripada yang kamu pikirin. Makasih yaa udah bertahan sampai sekarang.
+  makasiih karena masih milih buat tetep jalan walaupun kadang hidup ga selalu sesuai yang kamu mau.
+  dan makasih juga karena udah jadi seseorang yang bikin hari-hari aku terasa lebih ringan.
+  Today is all about loving yourself a little more.
+  jadi coba bahagiain diri kamu juga yaa.
+  makan makanan favorit kamu, tidur yang cukup, denger lagu yang kamu suka, dan nikmatin hari-hari kamu pelan-pelan.
+  i hope life treats you gently.
+  i hope the universe gives you so many beautiful things.
+  dan aku harap semua doa baik yang diam-diam kamu simpan bisa satu-satu jadi kenyataan.
+   thank you for existing.
+   thank you for staying.`;
 
   let i = 0;
   const el = document.getElementById("typingText");
