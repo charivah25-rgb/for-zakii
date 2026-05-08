@@ -226,25 +226,18 @@
 
     function checkPassword(){
 
-      const password =
-      document.getElementById("passwordInput").value;
+  const password = document.getElementById("passwordInput").value;
 
-      if(password === "2702"){
+  if(password === "2702"){
 
-        document
-        .getElementById("passwordPage")
-        .classList.add("hidden");
+    document.getElementById("passwordPage").classList.add("hidden");
+    document.getElementById("envelopePage").classList.remove("hidden");
 
-        document
-        .getElementById("envelopePage")
-        .classList.remove("hidden");
+  }else{
 
-      }else{
+    alert("password salah 😭");
 
-        alert("password salah 😭");
-
-      }
-
+  }
     }
 
 
