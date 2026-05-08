@@ -22,7 +22,6 @@ body{
   align-items:center;
 }
 
-/* FIRST SCREEN */
 #giftScreen{display:flex;}
 
 /* GIFT */
@@ -99,11 +98,16 @@ button{
   position:absolute;
   left:50%;
   bottom:10px;
-  transform:translateX(-50%);
-  display:none;
-  z-index:20;
-  transition:0.6s ease;
+  transform:translateX(-50%) scaleY(0);
+  transform-origin:bottom;
   opacity:0;
+  transition:0.6s ease;
+  z-index:20;
+}
+
+.letter.show{
+  transform:translateX(-50%) translateY(-40px) scaleY(1);
+  opacity:1;
 }
 
 .letter img{
@@ -123,12 +127,8 @@ button{
 }
 
 @keyframes fall{
-  0%{
-    transform:translateY(-10vh) rotate(0deg);
-  }
-  100%{
-    transform:translateY(110vh) rotate(360deg);
-  }
+  0%{transform:translateY(-10vh) rotate(0deg);}
+  100%{transform:translateY(110vh) rotate(360deg);}
 }
 
 </style>
@@ -157,22 +157,20 @@ button{
 
 <!-- 💌 ENVELOPE -->
 <div class="screen" id="envScreen">
-
   <div class="wrapper">
 
-    <div class="envelope" onclick="openLetter()"></div>
+    <div class="envelope" onclick="toggleLetter()"></div>
 
     <div class="letter" id="letter">
       <img src="https://files.catbox.moe/5jqk3h.png">
     </div>
 
   </div>
-
 </div>
 
 <script>
 
-/* FLOW */
+/* FLOW SCREEN */
 function toPW(){
   document.getElementById("giftScreen").style.display="none";
   document.getElementById("pwScreen").style.display="flex";
@@ -189,18 +187,30 @@ function check(){
   }
 }
 
-/* LETTER */
-function openLetter(){
-  const letter=document.getElementById("letter");
-  letter.style.display="block";
+/* LETTER TOGGLE */
+let opened=false;
 
-  setTimeout(()=>{
-    letter.style.opacity="1";
-    letter.style.transform="translateX(-50%) translateY(-40px)";
-  },50);
+function toggleLetter(){
+  const letter=document.getElementById("letter");
+
+  if(!opened){
+    letter.style.display="block";
+    setTimeout(()=>{
+      letter.classList.add("show");
+    },50);
+    opened=true;
+  }else{
+    letter.classList.remove("show");
+
+    setTimeout(()=>{
+      letter.style.display="none";
+    },600);
+
+    opened=false;
+  }
 }
 
-/* FLOWERS (RINGAN) */
+/* FLOWERS (LIGHT VERSION) */
 function createFlowers(){
   const container=document.querySelector(".flowers");
 
