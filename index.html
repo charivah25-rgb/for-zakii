@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>for you ♡</title>
 
@@ -16,134 +16,88 @@
 
 body{
   height:100vh;
-  overflow:hidden;
+  background:#f7efe9;
   font-family:'Poppins',sans-serif;
-  background:#f3eee8; /* disesuaikan sama surat */
 }
 
-/* glow soft (bukan pink) */
-.glow{
-  position:absolute;
-  width:300px;
-  height:300px;
-  background:#e7dccf;
-  border-radius:50%;
-  filter:blur(120px);
-  opacity:.6;
-}
-
-/* GIFT */
-.giftScreen{
-  position:absolute;
-  inset:0;
-  display:flex;
+/* SCREEN */
+.screen{
+  display:none;
+  height:100vh;
   justify-content:center;
   align-items:center;
   flex-direction:column;
-  background:#f3eee8;
-  z-index:200;
 }
 
-.giftBox{
-  font-size:90px;
+/* FIRST */
+#giftScreen{display:flex;}
+
+/* 🎁 VALENTINE GIFT */
+.gift{
+  width:180px;
+  height:180px;
+  background:linear-gradient(135deg,#ff7f9c,#ffc1cc);
+  border-radius:22px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:60px;
   cursor:pointer;
+  box-shadow:0 20px 50px rgba(0,0,0,0.15);
 }
 
 .giftText{
   margin-top:12px;
   color:#7a5c52;
-  font-size:14px;
-}
-
-/* LOADING */
-.loadingScreen{
-  position:absolute;
-  inset:0;
-  background:#f6f1ec;
-  display:none;
-  justify-content:center;
-  align-items:center;
-  flex-direction:column;
-  z-index:170;
-}
-
-.loader{
-  width:45px;
-  height:45px;
-  border:4px solid #d8c9bb;
-  border-top:4px solid #9b7b6b;
-  border-radius:50%;
-  animation:spin 1s linear infinite;
-}
-
-@keyframes spin{
-  to{transform:rotate(360deg);}
 }
 
 /* PASSWORD */
-.lockScreen{
-  position:absolute;
-  inset:0;
-  background:#f3eee8;
-  display:none;
-  justify-content:center;
-  align-items:center;
-  z-index:99;
-}
-
-.lockBox{
+.box{
   width:280px;
-  background:#fff;
   padding:28px;
+  background:#fff;
   border-radius:18px;
-  box-shadow:0 15px 40px rgba(0,0,0,.1);
   text-align:center;
+  box-shadow:0 15px 40px rgba(0,0,0,0.1);
 }
 
-.lockBox h2{
-  font-family:'Parisienne',cursive;
-  font-size:38px;
-  color:#7a5c52;
-  margin-bottom:15px;
-}
-
-.lockBox input{
+input{
   width:100%;
   padding:12px;
-  border:none;
+  margin-top:10px;
+  border:1px solid #e6d8cf;
   border-radius:10px;
-  background:#f5efe9;
   outline:none;
-  margin-bottom:12px;
+  background:#fff7f3;
 }
 
-.lockBox button{
+button{
   width:100%;
+  margin-top:12px;
   padding:12px;
   border:none;
   border-radius:10px;
-  background:#b79b88;
+  background:#caa08c;
   color:white;
-  cursor:pointer;
 }
 
 /* ENVELOPE */
-.envScreen{
-  position:absolute;
-  inset:0;
-  display:none;
-  justify-content:center;
-  align-items:center;
+.wrapper{
+  width:310px;
+  height:220px;
+  position:relative;
 }
 
+/* envelope */
 .envelope{
-  width:300px;
-  height:200px;
+  width:100%;
+  height:180px;
   background:#fff;
-  border-radius:12px;
-  position:relative;
+  border-radius:14px;
+  position:absolute;
+  bottom:0;
   cursor:pointer;
-  box-shadow:0 15px 40px rgba(0,0,0,.1);
+  box-shadow:0 15px 40px rgba(0,0,0,0.1);
 }
 
 /* flap */
@@ -151,30 +105,40 @@ body{
   content:"";
   position:absolute;
   inset:0;
-  background:#eee2d8;
+  background:#f3e4da;
   clip-path:polygon(0 0,50% 55%,100% 0,100% 100%,0 100%);
 }
 
-/* LETTER IMAGE */
+/* LETTER */
 .letter{
   position:absolute;
   left:50%;
   bottom:20px;
-  transform:translateX(-50%);
-  display:none;
+
+  transform:translateX(-50%) translateY(40px);
+  opacity:0;
+
+  transition:0.6s ease;
+
+  width:340px;
+}
+
+.letter.open{
+  transform:translateX(-50%) translateY(-165px);
+  opacity:1;
 }
 
 .letter img{
-  width:320px;
+  width:100%;
   border-radius:12px;
-  box-shadow:0 10px 25px rgba(0,0,0,.15);
+  box-shadow:0 10px 30px rgba(0,0,0,0.15);
 }
 
-/* download hint */
+/* hint */
 .hint{
-  margin-top:10px;
-  text-align:center;
+  margin-top:8px;
   font-size:12px;
+  text-align:center;
   color:#7a5c52;
 }
 
@@ -183,73 +147,73 @@ body{
 
 <body>
 
-<div class="glow"></div>
-
-<!-- GIFT -->
-<div class="giftScreen" id="giftScreen">
-  <div class="giftBox" onclick="openGift()">🎁</div>
-  <div class="giftText">tap the gift ♡</div>
-</div>
-
-<!-- LOADING -->
-<div class="loadingScreen" id="loadingScreen">
-  <div class="loader"></div>
-</div>
-
-<!-- PASSWORD -->
-<div class="lockScreen" id="lockScreen">
-  <div class="lockBox">
-    <h2>for you ♡</h2>
-    <input type="password" id="password" placeholder="enter password">
-    <button onclick="checkPassword()">open</button>
+<!-- 🎁 GIFT -->
+<div class="screen" id="giftScreen">
+  <div>
+    <div class="gift" onclick="toPW()">🎁</div>
+    <div class="giftText">for someone special ♡</div>
   </div>
 </div>
 
-<!-- ENVELOPE -->
-<div class="envScreen" id="envScreen">
+<!-- 🔒 PASSWORD -->
+<div class="screen" id="pwScreen">
+  <div class="box">
+    <p>enter password</p>
+    <input id="pw" type="password">
+    <button onclick="check()">open</button>
+  </div>
+</div>
 
-  <div class="envelope" onclick="openLetter()"></div>
+<!-- 💌 ENVELOPE -->
+<div class="screen" id="envScreen">
 
-  <div class="letter" id="letter">
-    <img src="https://files.catbox.moe/5jqk3h.png">
-    <div class="hint">screenshot this letter ♡</div>
+  <div class="wrapper">
+
+    <div class="envelope" onclick="toggleLetter()"></div>
+
+    <div class="letter" id="letter">
+      <img src="https://files.catbox.moe/5jqk3h.png">
+      <div class="hint">tap again to close ♡</div>
+    </div>
+
   </div>
 
 </div>
 
 <script>
 
-let opened = false;
+let opened=false;
 
-/* FLOW */
-function openGift(){
+/* gift → pw */
+function toPW(){
   document.getElementById("giftScreen").style.display="none";
-  document.getElementById("loadingScreen").style.display="flex";
-
-  setTimeout(()=>{
-    document.getElementById("loadingScreen").style.display="none";
-    document.getElementById("lockScreen").style.display="flex";
-  },2500);
+  document.getElementById("pwScreen").style.display="flex";
 }
 
-/* PASSWORD */
-function checkPassword(){
-  const pass = document.getElementById("password").value;
+/* password */
+function check(){
+  let pw=document.getElementById("pw").value;
 
-  if(pass === "zaki"){
-    document.getElementById("lockScreen").style.display="none";
+  if(pw==="zaki"){
+    document.getElementById("pwScreen").style.display="none";
     document.getElementById("envScreen").style.display="flex";
-  } else {
-    alert("wrong password");
+  }else{
+    alert("wrong password :(");
   }
 }
 
-/* OPEN LETTER */
-function openLetter(){
-  if(opened) return;
-  opened = true;
+/* toggle letter */
+function toggleLetter(){
 
-  document.getElementById("letter").style.display="block";
+  const letter=document.getElementById("letter");
+
+  if(!opened){
+    letter.classList.add("open");
+    opened=true;
+  }else{
+    letter.classList.remove("open");
+    opened=false;
+  }
 }
 
 </script>
