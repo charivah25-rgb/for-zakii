@@ -85,8 +85,9 @@
 
     .letter{
   width:90%;
-  max-width:360px;
-  max-height:70vh;
+  max-width:420px;
+
+  height:520px;
 
   background:#fffdfb;
   padding:26px 22px;
@@ -102,13 +103,16 @@
 
   background-image:
     linear-gradient(#fffdfb 95%, #f6e9ef 100%);
+
   background-size:100% 26px;
 
   animation:paperIn .7s ease forwards;
+
   transform:translateY(30px);
   opacity:0;
-}
 
+  flex-shrink:0; 
+    }
 /* animasi masuk */
 @keyframes paperIn{
   from{
