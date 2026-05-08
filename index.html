@@ -25,7 +25,7 @@ body{
   position:relative;
 }
 
-/* 🌸 background */
+/* background */
 body::before{
   content:"";
   position:absolute;
@@ -36,7 +36,7 @@ body::before{
   filter:blur(1px);
 }
 
-/* ✨ glow */
+/* glow */
 .glow{
   position:absolute;
   width:300px;
@@ -47,7 +47,7 @@ body::before{
   opacity:.5;
 }
 
-/* 🎁 GIFT */
+/* gift */
 .giftScreen{
   position:absolute;
   inset:0;
@@ -71,30 +71,14 @@ body::before{
   font-size:14px;
 }
 
-@keyframes float{
-  50%{
-    transform:translateY(-10px);
-  }
-}
-
-/* 🌸 FLOWER */
-.flower{
+/* flower screen FIX */
+.flowerScreen{
   position:absolute;
-  font-size:30px;
-  opacity:0.8;
-  animation:float 3s ease-in-out infinite;
-}
-
-@keyframes float{
-  0%{
-    transform:translateY(0) scale(0.8);
-  }
-  50%{
-    transform:translateY(-30px) scale(1);
-  }
-  100%{
-    transform:translateY(0) scale(0.8);
-  }
+  inset:0;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:180;
 }
 
 .flower{
@@ -103,18 +87,11 @@ body::before{
 }
 
 @keyframes bloom{
-  0%{
-    transform:scale(0);
-    opacity:0;
-  }
-
-  100%{
-    transform:scale(7);
-    opacity:.15;
-  }
+  0%{transform:scale(0);opacity:0;}
+  100%{transform:scale(7);opacity:.15;}
 }
 
-/* ⏳ LOADING */
+/* loading */
 .loadingScreen{
   position:absolute;
   inset:0;
@@ -142,35 +119,27 @@ body::before{
 }
 
 @keyframes spin{
-  to{
-    transform:rotate(360deg);
-  }
+  to{transform:rotate(360deg);}
 }
 
-/* 🔒 PASSWORD */
+/* password */
 .lockScreen{
   position:absolute;
   inset:0;
   background:rgba(255,245,248,.92);
-
   backdrop-filter:blur(10px);
-
   display:none;
   justify-content:center;
   align-items:center;
-
   z-index:99;
 }
 
 .lockBox{
   width:280px;
   background:white;
-
   padding:28px;
   border-radius:20px;
-
   box-shadow:0 20px 40px rgba(0,0,0,.12);
-
   text-align:center;
 }
 
@@ -178,7 +147,6 @@ body::before{
   font-family:'Parisienne',cursive;
   font-size:42px;
   color:#9b5c74;
-
   margin-bottom:20px;
 }
 
@@ -209,7 +177,7 @@ body::before{
   font-size:12px;
 }
 
-/* 💌 scene */
+/* envelope */
 .scene{
   position:relative;
   width:320px;
@@ -217,8 +185,7 @@ body::before{
   z-index:5;
 }
 
-/* 💌 envelope */
-  .envelope{
+.envelope{
   position:absolute;
   bottom:0;
   left:50%;
@@ -230,7 +197,6 @@ body::before{
   box-shadow:0 20px 40px rgba(0,0,0,.15);
   overflow:visible;
   cursor:pointer;
- 
 }
 
 .clickArea{
@@ -239,71 +205,47 @@ body::before{
   z-index:999;
 }
 
-/* front */
 .envelope::before{
   content:"";
   position:absolute;
   inset:0;
-  background:
-  linear-gradient(135deg,#ffe3eb,#ffd3e0);
-
+  background:linear-gradient(135deg,#ffe3eb,#ffd3e0);
   clip-path:polygon(0 0,50% 55%,100% 0,100% 100%,0 100%);
-
   z-index:3;
 }
 
-/* flap */
 .flap{
   position:absolute;
   top:0;
-  left:0;
   width:100%;
   height:100%;
-
   background:#ffc7d7;
-
   clip-path:polygon(0 0,50% 60%,100% 0);
-
   transform-origin:top;
-
   transition:1s ease;
-
   z-index:4;
 }
 
-/* 📄 paper */
 .paper{
   width:340px;
   height:260px;
-
   background:#fffdfb;
   padding:22px;
   border-radius:12px;
-
   overflow-y:auto;
-  overflow-x:hidden;
-
   box-shadow:0 20px 50px rgba(0,0,0,.18);
-
   text-align:left;
   line-height:1.6;
-
   position:absolute;
   left:50%;
   bottom:20px;
-
   transform:translateX(-50%);
-  
   transition:1s ease;
-
   z-index:2;
 }
 
-/* open animation */
 .open .paper{
-  transform:
-  translateX(-50%)
-  translateY(-90px);
+  transform:translateX(-50%) translateY(-90px);
 }
 
 .open .flap{
@@ -311,17 +253,6 @@ body::before{
   z-index:0;
 }
 
-/* scrollbar */
-.paper::-webkit-scrollbar{
-  width:4px;
-}
-
-.paper::-webkit-scrollbar-thumb{
-  background:#d8a9b8;
-  border-radius:999px;
-}
-
-/* title */
 .title{
   font-family:'Parisienne', cursive;
   font-size:35px;
@@ -329,14 +260,11 @@ body::before{
   color:#9b5c74;
 }
 
-/* text */
 .text{
   font-size:14px;
-  line-height:1.5;
   color:#7a5060;
 }
 
-/* signature */
 .signature{
   margin-top:30px;
   font-family:'Parisienne', cursive;
@@ -345,7 +273,6 @@ body::before{
   color:#9b5c74;
 }
 
-/* tap */
 .tap{
   position:absolute;
   bottom:-45px;
@@ -355,7 +282,6 @@ body::before{
   color:#9b5c74;
   opacity:.7;
 }
-
 </style>
 </head>
 
@@ -363,96 +289,52 @@ body::before{
 
 <div class="glow"></div>
 
-<!-- 🎁 GIFT -->
+<!-- gift -->
 <div class="giftScreen" id="giftScreen">
-
-  <div class="giftBox" onclick="openGift()">
-    🎁
-  </div>
-
-  <div class="giftText">
-    tap the gift ♡
-  </div>
-
+  <div class="giftBox" onclick="openGift()">🎁</div>
+  <div class="giftText">tap the gift ♡</div>
 </div>
 
-<!-- 🌸 FLOWER -->
-<div class="flowerScreen">
-  <div class="flower">🌸</div>
-  <div class="flower">🌸</div>
-  <div class="flower">🌸</div>
-  <div class="flower">🌸</div>
+<!-- flower FIX ID -->
+<div class="flowerScreen" id="flowerScreen">
   <div class="flower">🌸</div>
 </div>
 
-<!-- ⏳ LOADING -->
+<!-- loading -->
 <div class="loadingScreen" id="loadingScreen">
-
   <div class="loader"></div>
-
   <p>opening your letter...</p>
-
 </div>
 
-<!-- 🔒 PASSWORD -->
+<!-- password -->
 <div class="lockScreen" id="lockScreen">
-
   <div class="lockBox">
-
     <h2>for you ♡</h2>
-
-    <input 
-      type="password"
-      id="password"
-      placeholder="enter password"
-    >
-
-    <button onclick="checkPassword()">
-      open
-    </button>
-
+    <input type="password" id="password" placeholder="enter password">
+    <button onclick="checkPassword()">open</button>
     <p id="wrong"></p>
-
   </div>
-
 </div>
 
-<!-- 💌 scene -->
+<!-- envelope -->
 <div class="scene">
+  <div class="envelope" id="env">
+    <div class="clickArea" onclick="openLetter()"></div>
+    <div class="flap"></div>
 
-<div class="envelope" id="env">
-
-  <div class="clickArea"
-  onclick="openLetter()"></div>
-
-  <div class="flap"></div>
-
-    <!-- 📄 paper -->
     <div class="paper">
-
-      <div class="title">
-        Dear kamu,
-      </div>
-
+      <div class="title">Dear kamu,</div>
       <div class="text" id="typing"></div>
 
       <div class="signature">
-        love,
-        <br>
-        aku ♡
+        love,<br>aku ♡
       </div>
-
     </div>
-
   </div>
 
-  <div class="tap">
-    tap the envelope ♡
-  </div>
-
+  <div class="tap">tap the envelope ♡</div>
 </div>
 
-<!-- 🎵 music -->
 <audio id="music" loop>
   <source src="https://files.catbox.moe/96xsgj.mp3">
 </audio>
@@ -489,86 +371,50 @@ thank you for staying.`;
 let i = 0;
 let opened = false;
 
-/* 🎁 FLOW */
 function openGift(){
-
-  document.getElementById("giftScreen")
-  .style.display="none";
-
-  document.getElementById("flowerScreen")
-  .style.display="flex";
+  document.getElementById("giftScreen").style.display="none";
+  document.getElementById("flowerScreen").style.display="flex";
 
   setTimeout(()=>{
-
-    document.getElementById("flowerScreen")
-    .style.display="none";
-
-    document.getElementById("loadingScreen")
-    .style.display="flex";
-
+    document.getElementById("flowerScreen").style.display="none";
+    document.getElementById("loadingScreen").style.display="flex";
   },1800);
 
   setTimeout(()=>{
-
-    document.getElementById("loadingScreen")
-    .style.display="none";
-
-    document.getElementById("lockScreen")
-    .style.display="flex";
-
+    document.getElementById("loadingScreen").style.display="none";
+    document.getElementById("lockScreen").style.display="flex";
   },4200);
 }
 
-/* 🔒 PASSWORD */
 function checkPassword(){
-
-  const pass =
-  document.getElementById("password").value;
+  const pass = document.getElementById("password").value;
 
   if(pass === "zaki"){
-
-    document.getElementById("lockScreen")
-    .style.display="none";
-
-  }else{
-
-    document.getElementById("wrong")
-    .innerHTML="wrong password :(";
+    document.getElementById("lockScreen").style.display="none";
+  } else {
+    document.getElementById("wrong").innerHTML="wrong password :(";
   }
 }
 
-/* ✍️ typing */
 function typeText(){
-
   if(i < text.length){
-
-    document.getElementById("typing")
-    .innerHTML += text.charAt(i);
-
+    document.getElementById("typing").innerHTML += text.charAt(i);
     i++;
-
     setTimeout(typeText,22);
   }
 }
 
-/* 💌 open */
 function openLetter(){
-
   if(opened) return;
-
   opened = true;
 
-  document.getElementById("env")
-  .classList.add("open");
+  document.getElementById("env").classList.add("open");
 
-  document.getElementById("music")
-  .play()
-  .catch(()=>{});
+  document.getElementById("music").play().catch(()=>{});
 
-  setTimeout(()=>{
-    typeText();
-  },900);
+  setTimeout(()=> typeText(),900);
 }
+
 </script>
 
 </body>
