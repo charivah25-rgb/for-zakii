@@ -211,7 +211,7 @@ body::before{
 }
 
 /* 💌 envelope */
-.envelope{
+  .envelope{
   position:absolute;
   bottom:0;
   left:50%;
@@ -221,8 +221,9 @@ body::before{
   background:#fff;
   border-radius:8px;
   box-shadow:0 20px 40px rgba(0,0,0,.15);
-  overflow:hidden;
+  overflow:visible;
   cursor:pointer;
+ 
 }
 
 .clickArea{
@@ -353,21 +354,6 @@ body::before{
   font-size:13px;
   color:#9b5c74;
   opacity:.7;
-}
-
-/* hearts */
-.heart{
-  position:absolute;
-  color:#ff8fb1;
-  font-size:14px;
-  animation:fall linear infinite;
-  opacity:.7;
-}
-
-@keyframes fall{
-  to{
-    transform:translateY(110vh);
-  }
 }
 
 </style>
@@ -579,29 +565,6 @@ function openLetter(){
     typeText();
   },900);
 }
-
-/* 💖 hearts */
-for(let i=0;i<24;i++){
-
-  const h=document.createElement("div");
-
-  h.classList.add("heart");
-
-  h.innerHTML="♡";
-
-  h.style.left=Math.random()*100+"vw";
-
-  h.style.top="-20px";
-
-  h.style.fontSize=
-  (Math.random()*18+10)+"px";
-
-  h.style.animationDuration=
-  (Math.random()*5+5)+"s";
-
-  document.body.appendChild(h);
-}
-
 </script>
 
 </body>
