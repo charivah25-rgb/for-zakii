@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>for you ♡</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  height:100vh;
+  overflow:hidden;
+  font-family:'Poppins',sans-serif;
+  background:#fceff3;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  position:relative;
+}
+
+/* 🌸 background */
+body::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:url('https://i.pinimg.com/736x/7e/31/1c/7e311c6fbb2f6d9f87a2b39c8f4c6d62.jpg');
+  background-size:cover;
+  opacity:.22;
+  filter:blur(1px);
+}
+
+/* ✨ glow */
+.glow{
+  position:absolute;
+  width:300px;
+  height:300px;
+  background:#ffd1df;
+  border-radius:50%;
+  filter:blur(120px);
+  opacity:.5;
+}
+
+/* 🎁 GIFT */
+.giftScreen{
+  position:absolute;
+  inset:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  background:#fceff3;
+  z-index:200;
+}
+
+.giftBox{
+  font-size:90px;
+  cursor:pointer;
+  animation:float 2s ease-in-out infinite;
+}
+
+.giftText{
+  margin-top:12px;
+  color:#9b5c74;
+  font-size:14px;
+}
+
+@keyframes float{
+  50%{
+    transform:translateY(-10px);
+  }
+}
+
+/* 🌸 FLOWER */
+.flowerScreen{
+  position:absolute;
+  inset:0;
+  background:#fff5f8;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+  z-index:180;
+}
+
+.flower{
+  font-size:40px;
+  animation:bloom 2s ease forwards;
+}
+
+@keyframes bloom{
+  0%{
+    transform:scale(0);
+    opacity:0;
+  }
+
+  100%{
+    transform:scale(7);
+    opacity:.15;
+  }
+}
+
+/* ⏳ LOADING */
+.loadingScreen{
+  position:absolute;
+  inset:0;
+  background:#fff7fa;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  z-index:170;
+}
+
+.loader{
+  width:45px;
+  height:45px;
+  border:4px solid #f2c7d4;
+  border-top:4px solid #c97d97;
+  border-radius:50%;
+  animation:spin 1s linear infinite;
+}
+
+.loadingScreen p{
+  margin-top:15px;
+  color:#9b5c74;
+  font-size:13px;
+}
+
+@keyframes spin{
+  to{
+    transform:rotate(360deg);
+  }
+}
+
+/* 🔒 PASSWORD */
+.lockScreen{
+  position:absolute;
+  inset:0;
+  background:rgba(255,245,248,.92);
+
+  backdrop-filter:blur(10px);
+
+  display:none;
+  justify-content:center;
+  align-items:center;
+
+  z-index:99;
+}
+
+.lockBox{
+  width:280px;
+  background:white;
+
+  padding:28px;
+  border-radius:20px;
+
+  box-shadow:0 20px 40px rgba(0,0,0,.12);
+
+  text-align:center;
+}
+
+.lockBox h2{
+  font-family:'Parisienne',cursive;
+  font-size:42px;
+  color:#9b5c74;
+
+  margin-bottom:20px;
+}
+
+.lockBox input{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:12px;
+  background:#f8eef2;
+  outline:none;
+  margin-bottom:14px;
+}
+
+.lockBox button{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:12px;
+  background:#e8b8c8;
+  color:white;
+  cursor:pointer;
+  font-size:14px;
+}
+
+#wrong{
+  margin-top:10px;
+  color:#d66;
+  font-size:12px;
+}
+
+/* 💌 scene */
+.scene{
+  position:relative;
+  width:320px;
+  height:420px;
+  z-index:5;
+}
+
+/* 💌 envelope */
+.envelope{
+  position:absolute;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:260px;
+  height:170px;
+  background:#fff;
+  border-radius:8px;
+  box-shadow:0 20px 40px rgba(0,0,0,.15);
+  overflow:hidden;
+  cursor:pointer;
+}
+
+/* front */
+.envelope::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+  linear-gradient(135deg,#ffe3eb,#ffd3e0);
+
+  clip-path:polygon(0 0,50% 55%,100% 0,100% 100%,0 100%);
+
+  z-index:3;
+}
+
+/* flap */
+.flap{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+
+  background:#ffc7d7;
+
+  clip-path:polygon(0 0,50% 60%,100% 0);
+
+  transform-origin:top;
+
+  transition:1s ease;
+
+  z-index:4;
+}
+
+/* 📄 paper */
+.paper{
+  width:90%;
+  max-width:420px;
+  height:520px;
+
+  background:#fffdfb;
+  padding:26px 22px;
+  border-radius:16px;
+
+  overflow-y:auto;
+  overflow-x:hidden;
+
+  box-shadow:0 20px 50px rgba(0,0,0,.18);
+
+  text-align:left;
+  line-height:1.75;
+
+  background-image:
+  linear-gradient(#fffdfb 95%, #f6e9ef 100%);
+
+  background-size:100% 26px;
+
+  position:absolute;
+  left:50%;
+  bottom:20px;
+
+  transform:translateX(-50%);
+  
+  transition:1.4s ease;
+
+  z-index:2;
+}
+
+/* open animation */
+.open .paper{
+  transform:
+  translateX(-50%)
+  translateY(-170px);
+}
+
+.open .flap{
+  transform:rotateX(180deg);
+  z-index:0;
+}
+
+/* scrollbar */
+.paper::-webkit-scrollbar{
+  width:4px;
+}
+
+.paper::-webkit-scrollbar-thumb{
+  background:#d8a9b8;
+  border-radius:999px;
+}
+
+/* title */
+.title{
+  font-family:'Parisienne', cursive;
+  font-size:35px;
+  margin-bottom:15px;
+  color:#9b5c74;
+}
+
+/* text */
+.text{
+  font-size:18px;
+  line-height:1.8;
+  white-space:pre-line;
+  color:#7a5060;
+}
+
+/* signature */
+.signature{
+  margin-top:30px;
+  font-family:'Parisienne', cursive;
+  font-size:28px;
+  text-align:center;
+  color:#9b5c74;
+}
+
+/* tap */
+.tap{
+  position:absolute;
+  bottom:-45px;
+  width:100%;
+  text-align:center;
+  font-size:13px;
+  color:#9b5c74;
+  opacity:.7;
+}
+
+/* hearts */
+.heart{
+  position:absolute;
+  color:#ff8fb1;
+  font-size:14px;
+  animation:fall linear infinite;
+  opacity:.7;
+}
+
+@keyframes fall{
+  to{
+    transform:translateY(110vh);
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="glow"></div>
+
+<!-- 🎁 GIFT -->
+<div class="giftScreen" id="giftScreen">
+
+  <div class="giftBox" onclick="openGift()">
+    🎁
+  </div>
+
+  <div class="giftText">
+    tap the gift ♡
+  </div>
+
+</div>
+
+<!-- 🌸 FLOWER -->
+<div class="flowerScreen" id="flowerScreen">
+  <div class="flower">🌸</div>
+</div>
+
+<!-- ⏳ LOADING -->
+<div class="loadingScreen" id="loadingScreen">
+
+  <div class="loader"></div>
+
+  <p>opening your letter...</p>
+
+</div>
+
+<!-- 🔒 PASSWORD -->
+<div class="lockScreen" id="lockScreen">
+
+  <div class="lockBox">
+
+    <h2>for you ♡</h2>
+
+    <input 
+      type="password"
+      id="password"
+      placeholder="enter password"
+    >
+
+    <button onclick="checkPassword()">
+      open
+    </button>
+
+    <p id="wrong"></p>
+
+  </div>
+
+</div>
+
+<!-- 💌 scene -->
+<div class="scene">
+
+  <div class="envelope" onclick="openLetter()" id="env">
+
+    <div class="flap"></div>
+
+    <!-- 📄 paper -->
+    <div class="paper">
+
+      <div class="title">
+        Dear kamu,
+      </div>
+
+      <div class="text" id="typing"></div>
+
+      <div class="signature">
+        love,
+        <br>
+        aku ♡
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="tap">
+    tap the envelope ♡
+  </div>
+
+</div>
+
+<!-- 🎵 music -->
+<audio id="music" loop>
+  <source src="https://files.catbox.moe/96xsgj.mp3">
+</audio>
+
+<script>
+
+const text = `mungkin aku ga selalu bilang secara langsung, tapi aku beneran bersyukur banget bisa kenal dan sedeket ini sama kamu.
+
+aku harap setelah banyak hal yang kamu lewatin sejauh ini, kamu dapet lebih banyak hari baik, lebih banyak alasan buat senyum, dan lebih banyak momen yang bikin hati kamu tenang.
+
+less overthinking, less sadness, less doubting yourself.
+
+karena sejujurnya, kamu jauh lebih berharga daripada yang kamu pikirin. makasih yaa udah bertahan sampai sekarang.
+
+makasiih karena masih milih buat tetep jalan walaupun kadang hidup ga selalu sesuai yang kamu mau.
+
+dan makasih juga karena udah jadi seseorang yang bikin hari-hari aku terasa lebih ringan.
+
+Today is all about loving yourself a little more.
+
+jadi coba bahagiain diri kamu juga yaa.
+
+makan makanan favorit kamu, tidur yang cukup, denger lagu yang kamu suka, dan nikmatin hari-hari kamu pelan-pelan.
+
+i hope life treats you gently.
+
+i hope the universe gives you so many beautiful things.
+
+dan aku harap semua doa baik yang diam-diam kamu simpan bisa satu-satu jadi kenyataan.
+
+thank you for existing.
+thank you for staying.`;
+
+let i = 0;
+let opened = false;
+
+/* 🎁 FLOW */
+function openGift(){
+
+  document.getElementById("giftScreen")
+  .style.display="none";
+
+  document.getElementById("flowerScreen")
+  .style.display="flex";
+
+  setTimeout(()=>{
+
+    document.getElementById("flowerScreen")
+    .style.display="none";
+
+    document.getElementById("loadingScreen")
+    .style.display="flex";
+
+  },1800);
+
+  setTimeout(()=>{
+
+    document.getElementById("loadingScreen")
+    .style.display="none";
+
+    document.getElementById("lockScreen")
+    .style.display="flex";
+
+  },4200);
+}
+
+/* 🔒 PASSWORD */
+function checkPassword(){
+
+  const pass =
+  document.getElementById("password").value;
+
+  if(pass === "zaki"){
+
+    document.getElementById("lockScreen")
+    .style.display="none";
+
+  }else{
+
+    document.getElementById("wrong")
+    .innerHTML="wrong password :(";
+  }
+}
+
+/* ✍️ typing */
+function typeText(){
+
+  if(i < text.length){
+
+    document.getElementById("typing")
+    .innerHTML += text.charAt(i);
+
+    i++;
+
+    setTimeout(typeText,22);
+  }
+}
+
+/* 💌 open */
+function openLetter(){
+
+  if(opened) return;
+
+  opened = true;
+
+  document.getElementById("env")
+  .classList.add("open");
+
+  document.getElementById("music")
+  .play()
+  .catch(()=>{});
+
+  setTimeout(()=>{
+    typeText();
+  },900);
+}
+
+/* 💖 hearts */
+for(let i=0;i<24;i++){
+
+  const h=document.createElement("div");
+
+  h.classList.add("heart");
+
+  h.innerHTML="♡";
+
+  h.style.left=Math.random()*100+"vw";
+
+  h.style.top="-20px";
+
+  h.style.fontSize=
+  (Math.random()*18+10)+"px";
+
+  h.style.animationDuration=
+  (Math.random()*5+5)+"s";
+
+  document.body.appendChild(h);
+}
+
+</script>
+
+</body>
+</html>
