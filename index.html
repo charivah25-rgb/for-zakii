@@ -5,138 +5,101 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>for you ♡</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
 body{
+  margin:0;
   height:100vh;
-  overflow:hidden;
-  font-family:sans-serif;
   background:#0f0f0f;
+  font-family:'Poppins',sans-serif;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
 
-/* ALL SCREEN DEFAULT HIDDEN */
+/* SCREEN WRAPPER */
 .screen{
   display:none;
+  width:100%;
   height:100vh;
   justify-content:center;
   align-items:center;
+  flex-direction:column;
 }
 
 /* ONLY GIFT SHOW FIRST */
 #giftScreen{
   display:flex;
-  flex-direction:column;
 }
 
-.giftBox{
-  font-size:90px;
-  cursor:pointer;
-  animation:float 2s ease-in-out infinite;
-}
-
-@keyframes float{
-  50%{transform:translateY(-10px);}
-}
-
-/* LOADING */
-.loader{
-  width:45px;
-  height:45px;
-  border:3px solid #444;
-  border-top:3px solid #fff;
-  border-radius:50%;
-  animation:spin 1s linear infinite;
-}
-
-@keyframes spin{
-  to{transform:rotate(360deg);}
-}
-
-/* PASSWORD */
-.box{
+/* 🎁 CARD */
+.giftCard{
   background:rgba(255,255,255,0.08);
-  padding:20px;
-  border-radius:12px;
+  border:1px solid rgba(255,255,255,0.2);
+  padding:30px;
+  border-radius:16px;
+  text-align:center;
+  cursor:pointer;
+  color:white;
+  box-shadow:0 20px 50px rgba(0,0,0,0.5);
+}
+
+.giftIcon{
+  font-size:70px;
+}
+
+/* 🌸 bouquet */
+.bouquet{
+  font-size:70px;
+  margin-top:10px;
+}
+
+/* 🔒 PASSWORD (aesthetic glass) */
+.box{
+  width:270px;
+  padding:25px;
+  border-radius:16px;
+
+  background:rgba(255,255,255,0.07);
+  border:1px solid rgba(255,255,255,0.2);
+
+  backdrop-filter:blur(12px);
+
   color:white;
   text-align:center;
-  backdrop-filter:blur(10px);
+
+  box-shadow:0 20px 60px rgba(0,0,0,0.6);
 }
 
 input{
-  margin-top:10px;
+  margin-top:12px;
   width:100%;
-  padding:10px;
+  padding:12px;
   border:none;
-  border-radius:8px;
+  border-radius:10px;
   outline:none;
+  background:rgba(255,255,255,0.1);
+  color:white;
 }
 
 button{
   margin-top:10px;
   width:100%;
-  padding:10px;
+  padding:12px;
   border:none;
-  border-radius:8px;
-  cursor:pointer;
-}
-
-/* ENVELOPE */
-.envelope{
-  width:280px;
-  height:180px;
-  background:#eee;
-  border-radius:12px;
-  position:relative;
-  cursor:pointer;
-  box-shadow:0 20px 50px rgba(0,0,0,0.5);
-}
-
-.envelope::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(135deg,#ddd,#bbb);
-  clip-path:polygon(0 0,50% 55%,100% 0,100% 100%,0 100%);
-}
-
-/* LETTER */
-.letter{
-  position:absolute;
-  width:320px;
-  opacity:0;
-  transform:translateY(50px);
-  transition:1s ease;
-}
-
-.letter.show{
-  opacity:1;
-  transform:translateY(-130px);
-}
-
-/* FULLSCREEN */
-.fullscreen{
-  position:fixed;
-  inset:0;
-  display:none;
-  background:rgba(0,0,0,0.85);
-  justify-content:center;
-  align-items:center;
-  flex-direction:column;
-}
-
-.fullscreen.show{
-  display:flex;
-}
-
-.fullscreen img{
-  width:90%;
-  max-width:500px;
   border-radius:10px;
+  cursor:pointer;
+  background:white;
+  color:black;
+  font-weight:500;
+}
+
+/* 💌 LETTER */
+.letter{
+  width:320px;
+  border-radius:12px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.6);
 }
 
 </style>
@@ -146,16 +109,23 @@ button{
 
 <!-- 🎁 GIFT -->
 <div class="screen" id="giftScreen">
-  <div class="giftBox" onclick="start()">🎁</div>
+  <div class="giftCard" onclick="openGift()">
+    <div class="giftIcon">🎁</div>
+    <p>open your gift</p>
+  </div>
 </div>
 
-<!-- ⏳ LOADING -->
-<div class="screen" id="loadingScreen">
-  <div class="loader"></div>
+<!-- 🌸 BOUQUET SCREEN -->
+<div class="screen" id="bouquetScreen">
+  <div class="giftCard" onclick="toPassword()">
+    <div class="giftIcon">🎁</div>
+    <div class="bouquet">💐</div>
+    <p>you got a bouquet</p>
+  </div>
 </div>
 
 <!-- 🔒 PASSWORD -->
-<div class="screen" id="passwordScreen">
+<div class="screen" id="pwScreen">
   <div class="box">
     <p>enter password</p>
     <input type="password" id="pw">
@@ -163,52 +133,35 @@ button{
   </div>
 </div>
 
-<!-- 💌 SCENE -->
-<div class="screen" id="scene">
-  <div class="envelope" onclick="openLetter()"></div>
-
-  <div class="letter" id="letter">
-    <img src="https://files.catbox.moe/5jqk3h.png" width="320">
-  </div>
-</div>
-
-<!-- FULLSCREEN -->
-<div class="fullscreen" id="full">
-  <img src="https://files.catbox.moe/5jqk3h.png">
+<!-- 💌 LETTER -->
+<div class="screen" id="letterScreen">
+  <img class="letter" src="https://files.catbox.moe/5jqk3h.png">
 </div>
 
 <script>
 
-/* START FLOW */
-function start(){
+/* FLOW 1 */
+function openGift(){
   document.getElementById("giftScreen").style.display="none";
-  document.getElementById("loadingScreen").style.display="flex";
-
-  setTimeout(()=>{
-    document.getElementById("loadingScreen").style.display="none";
-    document.getElementById("passwordScreen").style.display="flex";
-  },2500);
+  document.getElementById("bouquetScreen").style.display="flex";
 }
 
-/* PASSWORD CHECK */
+/* FLOW 2 */
+function toPassword(){
+  document.getElementById("bouquetScreen").style.display="none";
+  document.getElementById("pwScreen").style.display="flex";
+}
+
+/* PASSWORD */
 function check(){
   let pw=document.getElementById("pw").value;
 
   if(pw==="zaki"){
-    document.getElementById("passwordScreen").style.display="none";
-    document.getElementById("scene").style.display="flex";
+    document.getElementById("pwScreen").style.display="none";
+    document.getElementById("letterScreen").style.display="flex";
   }else{
     alert("wrong password");
   }
-}
-
-/* OPEN LETTER */
-function openLetter(){
-  document.getElementById("letter").classList.add("show");
-
-  setTimeout(()=>{
-    document.getElementById("full").classList.add("show");
-  },1200);
 }
 
 </script>
