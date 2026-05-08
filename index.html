@@ -11,6 +11,7 @@ body{
   height:100vh;
   background:#f7efe9;
   font-family:sans-serif;
+  overflow:hidden;
 }
 
 /* SCREEN */
@@ -72,7 +73,7 @@ button{
   position:relative;
 }
 
-/* ENVELOPE (PASTI KENA CLICK) */
+/* ENVELOPE */
 .envelope{
   width:100%;
   height:180px;
@@ -80,14 +81,11 @@ button{
   border-radius:12px;
   position:absolute;
   bottom:0;
-
   cursor:pointer;
-  z-index:10; /* 🔥 penting biar bisa diklik */
-
+  z-index:10;
   box-shadow:0 10px 25px rgba(0,0,0,0.1);
 }
 
-/* flap */
 .envelope::before{
   content:"";
   position:absolute;
@@ -101,11 +99,11 @@ button{
   position:absolute;
   left:50%;
   bottom:10px;
-
   transform:translateX(-50%);
   display:none;
-
-  z-index:5;
+  z-index:20;
+  transition:0.6s ease;
+  opacity:0;
 }
 
 .letter img{
@@ -114,10 +112,32 @@ button{
   box-shadow:0 10px 30px rgba(0,0,0,0.15);
 }
 
+/* FLOWERS */
+.flower{
+  position:fixed;
+  top:-20px;
+  font-size:18px;
+  opacity:0.8;
+  animation:fall linear infinite;
+  pointer-events:none;
+}
+
+@keyframes fall{
+  0%{
+    transform:translateY(-10vh) rotate(0deg);
+  }
+  100%{
+    transform:translateY(110vh) rotate(360deg);
+  }
+}
+
 </style>
 </head>
 
 <body>
+
+<!-- 🌸 FLOWERS -->
+<div class="flowers"></div>
 
 <!-- 🎁 GIFT -->
 <div class="screen" id="giftScreen">
@@ -140,10 +160,8 @@ button{
 
   <div class="wrapper">
 
-    <!-- 🔥 CLICK AREA BESAR -->
     <div class="envelope" onclick="openLetter()"></div>
 
-    <!-- SURAT -->
     <div class="letter" id="letter">
       <img src="https://files.catbox.moe/5jqk3h.png">
     </div>
@@ -163,7 +181,7 @@ function toPW(){
 function check(){
   let pw=document.getElementById("pw").value;
 
-  if(pw==="zaki"){
+  if(pw.trim().toLowerCase()==="zaki"){
     document.getElementById("pwScreen").style.display="none";
     document.getElementById("envScreen").style.display="flex";
   }else{
@@ -171,10 +189,35 @@ function check(){
   }
 }
 
-/* OPEN LETTER */
+/* LETTER */
 function openLetter(){
-  document.getElementById("letter").style.display="block";
+  const letter=document.getElementById("letter");
+  letter.style.display="block";
+
+  setTimeout(()=>{
+    letter.style.opacity="1";
+    letter.style.transform="translateX(-50%) translateY(-40px)";
+  },50);
 }
+
+/* FLOWERS (RINGAN) */
+function createFlowers(){
+  const container=document.querySelector(".flowers");
+
+  for(let i=0;i<10;i++){
+    let f=document.createElement("div");
+    f.className="flower";
+    f.innerHTML="🌸";
+
+    f.style.left=Math.random()*100+"vw";
+    f.style.animationDuration=(4+Math.random()*3)+"s";
+    f.style.fontSize=(14+Math.random()*10)+"px";
+
+    container.appendChild(f);
+  }
+}
+
+createFlowers();
 
 </script>
 
