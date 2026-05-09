@@ -65,7 +65,12 @@ button{
   color:white;
 }
 
-/* LOADING */
+/* LOADING DREAMY */
+#loadingScreen{
+  backdrop-filter: blur(6px);
+  background: rgba(247,239,233,0.6);
+}
+
 .loadingBox{
   display:flex;
   flex-direction:column;
@@ -89,6 +94,31 @@ button{
 #loadingText{
   font-size:14px;
   color:#333;
+}
+
+/* HEART */
+.heart{
+  position:fixed;
+  top:-20px;
+  font-size:16px;
+  opacity:0.8;
+  animation:fall linear infinite;
+  pointer-events:none;
+}
+
+/* FLOWERS + HEART SHARE ANIMATION */
+.flower{
+  position:fixed;
+  top:-20px;
+  font-size:18px;
+  opacity:0.8;
+  animation:fall linear infinite;
+  pointer-events:none;
+}
+
+@keyframes fall{
+  0%{transform:translateY(-10vh) rotate(0deg);}
+  100%{transform:translateY(110vh) rotate(360deg);}
 }
 
 /* WRAPPER */
@@ -159,21 +189,6 @@ button{
   display:block;
 }
 
-/* FLOWERS */
-.flower{
-  position:fixed;
-  top:-20px;
-  font-size:18px;
-  opacity:0.8;
-  animation:fall linear infinite;
-  pointer-events:none;
-}
-
-@keyframes fall{
-  0%{transform:translateY(-10vh) rotate(0deg);}
-  100%{transform:translateY(110vh) rotate(360deg);}
-}
-
 </style>
 </head>
 
@@ -231,6 +246,7 @@ function toPW(){
   document.getElementById("pwScreen").style.display="flex";
 }
 
+/* CHECK PASSWORD */
 function check(){
   let pw=document.getElementById("pw").value;
 
@@ -239,6 +255,7 @@ function check(){
     document.getElementById("pwScreen").style.display="none";
     document.getElementById("loadingScreen").style.display="flex";
 
+    createHearts();
     document.getElementById("loadingText").innerHTML = "";
     i = 0;
     typeLoading();
@@ -314,6 +331,23 @@ function createFlowers(){
     f.style.fontSize=(14+Math.random()*10)+"px";
 
     container.appendChild(f);
+  }
+}
+
+/* HEARTS */
+function createHearts(){
+  const container=document.querySelector(".flowers");
+
+  for(let i=0;i<12;i++){
+    let h=document.createElement("div");
+    h.className="heart";
+    h.innerHTML="💗";
+
+    h.style.left=Math.random()*100+"vw";
+    h.style.animationDuration=(3+Math.random()*3)+"s";
+    h.style.fontSize=(12+Math.random()*12)+"px";
+
+    container.appendChild(h);
   }
 }
 
